@@ -1,0 +1,4 @@
+this is my code for the chatbot and it is now not working because of the api key. i was using gemini api key and now the google made it paid. i can't use it. i was using gemini model 2.5 pro maybe. firstly analyze this code and then i will also give you gemini api code in python. and after that you can tell me that what alternates I can use which are the best and free because i am testing 
+
+git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
