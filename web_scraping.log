@@ -193,3 +193,100 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 2025-07-05 00:38:26,420 - INFO - Successfully scraped 0 out of 33 URLs
 2025-07-05 00:38:26,421 - INFO - Load pretrained SentenceTransformer: BAAI/bge-base-en-v1.5
 2025-07-05 00:38:36,898 - INFO - Use pytorch device_name: cpu
+2025-07-05 01:15:37,281 - INFO - Loading faiss with AVX2 support.
+2025-07-05 01:15:37,282 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2025-07-05 01:15:37,282 - INFO - Loading faiss.
+2025-07-05 01:15:37,305 - INFO - Successfully loaded faiss.
+2025-07-05 01:16:10,415 - INFO - Found 43 URLs in Data\Links.txt
+2025-07-05 01:16:10,416 - INFO - Scraping https://uol.edu.pk/services/student-services/
+2025-07-05 01:16:11,664 - WARNING - Failed to retrieve https://uol.edu.pk/services/student-services/: HTTP 403
+2025-07-05 01:16:11,670 - INFO - Scraping https://virtual.uol.edu.pk/i-have-forgotten-password-my-official-uol-email-account
+2025-07-05 01:16:11,924 - INFO - Scraping https://uol.edu.pk/services/library/
+2025-07-05 01:16:11,925 - INFO - Scraping https://uol.edu.pk/services/controller-of-examination/
+2025-07-05 01:16:11,926 - INFO - Scraping https://uol.edu.pk/research/
+2025-07-05 01:16:11,926 - INFO - Scraping https://uol.edu.pk/services/cscl/
+2025-07-05 01:16:12,698 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/i-have-forgotten-password-my-official-uol-email-account: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /i-have-forgotten-password-my-official-uol-email-account (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:12,698 - INFO - Retrying https://virtual.uol.edu.pk/i-have-forgotten-password-my-official-uol-email-account without SSL verification...
+2025-07-05 01:16:13,410 - WARNING - Failed to retrieve https://uol.edu.pk/services/controller-of-examination/: HTTP 403
+2025-07-05 01:16:13,442 - INFO - Scraping https://uol.edu.pk/services/hostels-accommodations/policies-procedures/
+2025-07-05 01:16:13,554 - WARNING - Failed to retrieve https://uol.edu.pk/research/: HTTP 403
+2025-07-05 01:16:13,556 - INFO - Scraping https://virtual.uol.edu.pk/index.php/being-student-what-can-i-see-or-do-slate
+2025-07-05 01:16:13,583 - WARNING - Failed to retrieve https://uol.edu.pk/services/library/: HTTP 403
+2025-07-05 01:16:13,585 - WARNING - Failed to retrieve https://uol.edu.pk/services/cscl/: HTTP 403
+2025-07-05 01:16:14,378 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/index.php/being-student-what-can-i-see-or-do-slate: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /index.php/being-student-what-can-i-see-or-do-slate (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:14,379 - INFO - Retrying https://virtual.uol.edu.pk/index.php/being-student-what-can-i-see-or-do-slate without SSL verification...
+2025-07-05 01:16:14,541 - WARNING - Failed to retrieve https://uol.edu.pk/services/hostels-accommodations/policies-procedures/: HTTP 403
+2025-07-05 01:16:14,950 - INFO - Scraping https://uol.edu.pk/services/library/library-system/
+2025-07-05 01:16:14,950 - INFO - Scraping https://uol.edu.pk/life-at-uol/
+2025-07-05 01:16:14,950 - INFO - Scraping https://uol.edu.pk/services/hostels-accommodations/
+2025-07-05 01:16:14,950 - INFO - Scraping https://uol.edu.pk/campus-facilities/
+2025-07-05 01:16:16,284 - WARNING - Failed to retrieve https://uol.edu.pk/campus-facilities/: HTTP 403
+2025-07-05 01:16:16,285 - WARNING - Failed to retrieve https://uol.edu.pk/life-at-uol/: HTTP 403
+2025-07-05 01:16:16,296 - INFO - Scraping https://societies.uol.edu.pk/club-societies/
+2025-07-05 01:16:16,310 - WARNING - Failed to retrieve https://uol.edu.pk/services/library/library-system/: HTTP 403
+2025-07-05 01:16:16,361 - WARNING - Failed to retrieve https://uol.edu.pk/services/hostels-accommodations/: HTTP 403
+2025-07-05 01:16:16,461 - INFO - Scraping https://uol.edu.pk/services/hostels-accommodations/facilties/
+2025-07-05 01:16:16,461 - INFO - Scraping https://uol.edu.pk/admissions/scholarships/
+2025-07-05 01:16:16,462 - INFO - Scraping https://uol.edu.pk/discover-uol/
+2025-07-05 01:16:16,462 - INFO - Scraping https://uol.edu.pk/services/academic-council/
+2025-07-05 01:16:17,713 - WARNING - Failed to retrieve https://societies.uol.edu.pk/club-societies/: HTTP 403
+2025-07-05 01:16:17,883 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/scholarships/: HTTP 403
+2025-07-05 01:16:17,892 - WARNING - Failed to retrieve https://uol.edu.pk/discover-uol/: HTTP 403
+2025-07-05 01:16:17,927 - WARNING - Failed to retrieve https://uol.edu.pk/services/academic-council/: HTTP 403
+2025-07-05 01:16:17,950 - WARNING - Failed to retrieve https://uol.edu.pk/services/hostels-accommodations/facilties/: HTTP 403
+2025-07-05 01:16:17,971 - INFO - Scraping https://uol.edu.pk/admissions/scholarships/need-based-scholarship/
+2025-07-05 01:16:17,971 - INFO - Scraping https://uol.edu.pk/programs-courses-az/bachelor/
+2025-07-05 01:16:17,971 - INFO - Scraping https://uol.edu.pk/services/transport-services/
+2025-07-05 01:16:17,971 - INFO - Scraping https://uol.edu.pk/admissions/scholarships/kinship-scholarship/
+2025-07-05 01:16:17,971 - INFO - Scraping https://uol.edu.pk/about/
+2025-07-05 01:16:19,477 - WARNING - Failed to retrieve https://uol.edu.pk/about/: HTTP 403
+2025-07-05 01:16:19,482 - INFO - Scraping https://uol.edu.pk/admissions/admitted-students/
+2025-07-05 01:16:19,496 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/scholarships/kinship-scholarship/: HTTP 403
+2025-07-05 01:16:19,501 - INFO - Scraping https://virtual.uol.edu.pk/sap-hub-portal-link
+2025-07-05 01:16:19,526 - WARNING - Failed to retrieve https://uol.edu.pk/programs-courses-az/bachelor/: HTTP 403
+2025-07-05 01:16:19,528 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/scholarships/need-based-scholarship/: HTTP 403
+2025-07-05 01:16:19,563 - WARNING - Failed to retrieve https://uol.edu.pk/services/transport-services/: HTTP 403
+2025-07-05 01:16:20,378 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/sap-hub-portal-link: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /sap-hub-portal-link (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:20,379 - INFO - Retrying https://virtual.uol.edu.pk/sap-hub-portal-link without SSL verification...
+2025-07-05 01:16:20,901 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/admitted-students/: HTTP 403
+2025-07-05 01:16:20,984 - INFO - Scraping https://uol.edu.pk/contact-us/
+2025-07-05 01:16:20,985 - INFO - Scraping https://uol.edu.pk/services/registrar/
+2025-07-05 01:16:20,985 - INFO - Scraping https://uol.edu.pk/international-rankings/
+2025-07-05 01:16:20,986 - INFO - Scraping https://uol.edu.pk/admissions/scholarships/merit-scholarship/
+2025-07-05 01:16:22,331 - WARNING - Failed to retrieve https://uol.edu.pk/services/registrar/: HTTP 403
+2025-07-05 01:16:22,337 - INFO - Scraping https://virtual.uol.edu.pk/how-login-sap-fiori-portal
+2025-07-05 01:16:22,339 - WARNING - Failed to retrieve https://uol.edu.pk/contact-us/: HTTP 403
+2025-07-05 01:16:22,374 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/scholarships/merit-scholarship/: HTTP 403
+2025-07-05 01:16:22,375 - WARNING - Failed to retrieve https://uol.edu.pk/international-rankings/: HTTP 403
+2025-07-05 01:16:22,500 - INFO - Scraping https://uol.edu.pk/services/
+2025-07-05 01:16:22,500 - INFO - Scraping https://uol.edu.pk/portals/
+2025-07-05 01:16:22,500 - INFO - Scraping https://uol.edu.pk/services/club-societies/
+2025-07-05 01:16:22,500 - INFO - Scraping https://uol.edu.pk/news/
+2025-07-05 01:16:23,452 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/how-login-sap-fiori-portal: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /how-login-sap-fiori-portal (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:23,452 - INFO - Retrying https://virtual.uol.edu.pk/how-login-sap-fiori-portal without SSL verification...
+2025-07-05 01:16:24,264 - WARNING - Failed to retrieve https://uol.edu.pk/portals/: HTTP 403
+2025-07-05 01:16:24,267 - INFO - Scraping https://uol.edu.pk/academics/
+2025-07-05 01:16:24,268 - WARNING - Failed to retrieve https://uol.edu.pk/services/club-societies/: HTTP 403
+2025-07-05 01:16:24,269 - WARNING - Failed to retrieve https://uol.edu.pk/services/: HTTP 403
+2025-07-05 01:16:24,269 - WARNING - Failed to retrieve https://uol.edu.pk/news/: HTTP 403
+2025-07-05 01:16:24,271 - INFO - Scraping https://sdgs.uol.edu.pk/
+2025-07-05 01:16:24,477 - INFO - Scraping https://virtual.uol.edu.pk/index.php/how-does-slate-works
+2025-07-05 01:16:25,347 - WARNING - Failed to retrieve https://uol.edu.pk/academics/: HTTP 403
+2025-07-05 01:16:25,350 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/index.php/how-does-slate-works: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /index.php/how-does-slate-works (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:25,350 - INFO - Retrying https://virtual.uol.edu.pk/index.php/how-does-slate-works without SSL verification...
+2025-07-05 01:16:25,441 - WARNING - Failed to retrieve https://sdgs.uol.edu.pk/: HTTP 403
+2025-07-05 01:16:25,876 - INFO - Scraping https://uol.edu.pk/faculties-dept/
+2025-07-05 01:16:25,877 - INFO - Scraping https://uol.edu.pk/
+2025-07-05 01:16:25,877 - INFO - Scraping https://uol.edu.pk/admissions/
+2025-07-05 01:16:25,877 - INFO - Scraping https://uol.edu.pk/services/library/rules-regulations/
+2025-07-05 01:16:26,289 - INFO - Scraping https://virtual.uol.edu.pk/i-didnt-receive-verification-email-link-my-email-id-slateuoledupk
+2025-07-05 01:16:27,179 - WARNING - Failed to retrieve https://uol.edu.pk/services/library/rules-regulations/: HTTP 403
+2025-07-05 01:16:27,181 - WARNING - Failed to retrieve https://uol.edu.pk/admissions/: HTTP 403
+2025-07-05 01:16:27,185 - WARNING - Failed to retrieve https://uol.edu.pk/: HTTP 403
+2025-07-05 01:16:27,202 - WARNING - Failed to retrieve https://uol.edu.pk/faculties-dept/: HTTP 403
+2025-07-05 01:16:27,428 - WARNING - SSL verification failed for https://virtual.uol.edu.pk/i-didnt-receive-verification-email-link-my-email-id-slateuoledupk: HTTPSConnectionPool(host='virtual.uol.edu.pk', port=443): Max retries exceeded with url: /i-didnt-receive-verification-email-link-my-email-id-slateuoledupk (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1147)')))
+2025-07-05 01:16:27,429 - INFO - Retrying https://virtual.uol.edu.pk/i-didnt-receive-verification-email-link-my-email-id-slateuoledupk without SSL verification...
+2025-07-05 01:16:28,456 - INFO - Successfully scraped 6 out of 41 URLs
+2025-07-05 01:16:28,459 - INFO - Load pretrained SentenceTransformer: BAAI/bge-base-en-v1.5
+2025-07-05 01:16:35,967 - INFO - Use pytorch device_name: cpu

@@ -7,6 +7,10 @@ import logging
 from urllib.parse import urlparse, urljoin
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from concurrent.futures import ThreadPoolExecutor
+import urllib3
+
+# Disable SSL warnings when we bypass certificate verification
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Set up logging
 logging.basicConfig(
@@ -147,8 +151,17 @@ class WebScraper:
         
         try:
             logging.info(f"Scraping {url}")
-            response = requests.get(url, headers=self.headers, timeout=30)
             
+            # Try with SSL verification first
+            try:
+                response = requests.get(url, headers=self.headers, timeout=30, verify=True)
+            except requests.exceptions.SSLError as ssl_error:
+                logging.warning(f"SSL verification failed for {url}: {ssl_error}")
+                logging.info(f"Retrying {url} without SSL verification...")
+                
+                # Retry without SSL verification for problematic certificates
+                response = requests.get(url, headers=self.headers, timeout=30, verify=False)
+                
             if response.status_code == 200:
                 text_content = self._extract_text_from_html(response.text, url)
                 return {
