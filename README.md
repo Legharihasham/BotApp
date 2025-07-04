@@ -18,7 +18,7 @@ A custom chatbot for university students that provides accurate, precise, and co
 ## Requirements
 
 - Python 3.8+
-- Google Gemini API key (you can get one from [Google AI Studio](https://makersuite.google.com/app/apikey))
+- Groq API key (you can get one for free from [Groq Console](https://console.groq.com/keys))
 
 ## Setup and Installation
 
@@ -27,8 +27,8 @@ A custom chatbot for university students that provides accurate, precise, and co
    ```
    pip install -r requirements.txt
    ```
-3. Set up your Google Gemini API key in one of these ways:
-   - Create a `.env` file with `GOOGLE_API_KEY=your_api_key_here`
+3. Set up your Groq API key in one of these ways:
+   - Create a `.env` file with `GROQ_API_KEY=your_api_key_here`
    - Enter the API key in the Streamlit interface
 
 ### Quick Start with Update Script
@@ -47,18 +47,17 @@ This will:
 
 ## API Key Configuration
 
-This application uses the Google Gemini API key stored in a `.env` file. Follow these steps to set up your API key:
+This application uses the Groq API key stored in a `.env` file. Follow these steps to set up your API key:
 
-1. Copy the `env.example` file to a new file named `.env`:
-   ```
-   cp env.example .env
-   ```
+1. Sign up for a free Groq account at [console.groq.com](https://console.groq.com/keys)
 
-2. Open the `.env` file in a text editor.
+2. Generate your free API key
 
-3. Replace the example API key with your actual Google Gemini API key:
+3. Open the `.env` file in a text editor.
+
+4. Replace the placeholder with your actual Groq API key:
    ```
-   GOOGLE_API_KEY=your_actual_api_key_here
+   GROQ_API_KEY=your_actual_api_key_here
    ```
 
 4. Save the file. The application will automatically use this API key for all users.
@@ -89,10 +88,9 @@ streamlit run app.py
 ```
 
 This will open a web interface where you can:
-1. Enter your Google Gemini API key (if not provided via .env file)
-2. Load the knowledge base
-3. Choose which data sources to use (PDFs, website, or both)
-4. Ask questions about your university
+1. Load the knowledge base (Groq API key loaded from .env file)
+2. Choose which data sources to use (PDFs, website, or both)
+3. Ask questions about your university
 
 ## How It Works
 
@@ -109,7 +107,7 @@ This will open a web interface where you can:
 3. **Response Generation**:
    - Organized Context: The system provides context to the model organized by source type and relevance
    - Strict Guardrails: The system enforces strict guidelines to prevent making up information not in the context
-   - Comprehensive Response: The Gemini 1.5 Pro model generates accurate, beginner-friendly responses
+   - Comprehensive Response: The Llama 3.1 70B model via Groq generates accurate, beginner-friendly responses
 
 4. **User Interface**:
    - Streamlit provides a clean, user-friendly chat interface
@@ -122,7 +120,7 @@ This will open a web interface where you can:
 - `pdf_loader.py`: Module for loading and processing PDFs
 - `web_scraper.py`: Module for scraping and processing web content
 - `embeddings_manager.py`: Module for managing embeddings and FAISS index
-- `gemini_api.py`: Module for interacting with Google's Gemini API
+- `gemini_api.py`: Module for interacting with Groq's API (Llama 3.1 70B)
 - `Data/`: Directory containing university documents and links
   - `PDF's/`: General university documents
   - `Fee_structure/`: Fee structure documents for different departments
@@ -139,7 +137,7 @@ This will open a web interface where you can:
 
 If you encounter any issues:
 
-- Ensure your Google Gemini API key is valid
+- Ensure your Groq API key is valid and has free quota remaining
 - Check that the PDFs and web content have been processed by running `process_pdfs.py`
 - Verify that the `embeddings` directory contains the FAISS index files
-- Make sure all required packages are installed 
+- Make sure all required packages are installed

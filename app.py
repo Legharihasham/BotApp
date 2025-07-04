@@ -86,11 +86,11 @@ with st.sidebar:
     st.title("Settings")
     
     # API key is now loaded from .env file
-    api_key = os.getenv("GOOGLE_API_KEY", "")
+    api_key = os.getenv("GROQ_API_KEY", "")
     if not api_key:
-        st.error("No API key found in environment variables. Please check your .env file.")
+        st.error("No GROQ API key found in environment variables. Please check your .env file.")
     else:
-        st.success("API key loaded")
+        st.success("Groq API key loaded")
     
     # Session memory toggle
     use_memory = st.toggle(
@@ -134,13 +134,13 @@ with st.sidebar:
             except Exception as e:
                 st.error(f"Error loading knowledge base: {str(e)}")
     
-    # Initialize Gemini API
+    # Initialize Groq API
     if st.session_state.embeddings_loaded:
         try:
             st.session_state.gemini_api = GeminiAPI()
-            st.success("Gemini API initialized.")
+            st.success("Groq API initialized.")
         except Exception as e:
-            st.error(f"Error initializing Gemini API: {str(e)}")
+            st.error(f"Error initializing Groq API: {str(e)}")
     
     # Data source selector
     if st.session_state.embeddings_loaded:
@@ -188,7 +188,7 @@ with st.sidebar:
     This chatbot uses:
     - bge-base-en-v1.5 for embeddings
     - FAISS for similarity search
-    - Google's Gemini 1.5 Pro model for highly accurate responses
+    - Llama 3.1 8B via Groq API (direct HTTP) for fast, accurate responses
     - Combined knowledge from PDFs and university website
     """)
     
@@ -255,10 +255,10 @@ if prompt := st.chat_input("Ask about admissions, fees, courses, or university l
                 })
         elif not st.session_state.gemini_api:
             with st.chat_message("assistant"):
-                st.error("Gemini API not initialized. Please check your .env file for a valid API key.")
+                st.error("Groq API not initialized. Please check your .env file for a valid GROQ_API_KEY.")
                 st.session_state.messages.append({
                     "role": "assistant", 
-                    "content": "⚠️ Gemini API not initialized. Please check your .env file for a valid API key."
+                    "content": "⚠️ Groq API not initialized. Please check your .env file for a valid GROQ_API_KEY."
                 })
         else:
             # Get response

@@ -1,6 +1,7 @@
-import google.generativeai as genai
+import requests
 import os
 from dotenv import load_dotenv
+import json
 
 # Load environment variables
 load_dotenv()
@@ -8,21 +9,26 @@ load_dotenv()
 class GeminiAPI:
     def __init__(self):
         """
-        Initialize the Gemini API client
+        Initialize the Groq API client using direct HTTP requests
         
-        Requires GOOGLE_API_KEY environment variable to be set in .env file
+        Requires GROQ_API_KEY environment variable to be set in .env file
         """
         # Load environment variables again to ensure it's loaded
         load_dotenv()
         
-        api_key = os.getenv("GOOGLE_API_KEY")
+        api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
-            raise ValueError("GOOGLE_API_KEY environment variable not set in .env file")
+            raise ValueError("GROQ_API_KEY environment variable not set in .env file")
         
-        genai.configure(api_key=api_key)
+        self.api_key = api_key
+        self.api_url = "https://api.groq.com/openai/v1/chat/completions"
+        self.model_name = 'llama-3.1-8b-instant'
         
-        # Choose a model (using Gemini-1.5-pro model for better accuracy)
-        self.model = genai.GenerativeModel('gemini-1.5-pro')
+        # Using direct HTTP requests to bypass client library issues
+        self.headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
     
     def generate_response(self, question, context, query_history=None):
         """
@@ -108,42 +114,40 @@ class GeminiAPI:
         prompt = self._create_prompt(question, context, query_history)
         
         try:
-            # Set specific safety settings to prevent hallucinations
-            safety_settings = [
+            # Create messages for Groq API
+            messages = [
                 {
-                    "category": "HARM_CATEGORY_HARASSMENT",
-                    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-                },
-                {
-                    "category": "HARM_CATEGORY_HATE_SPEECH",
-                    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-                },
-                {
-                    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-                    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-                },
-                {
-                    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-                    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+                    "role": "user",
+                    "content": prompt
                 }
             ]
             
-            # Generation config to improve factuality and reduce hallucinations
-            generation_config = {
-                "temperature": 0.2,  # Lower temperature for more focused responses
+            # Create payload for direct HTTP request
+            payload = {
+                "model": self.model_name,
+                "messages": messages,
+                "temperature": 0.2,
+                "max_tokens": 2048,
                 "top_p": 0.85,
-                "top_k": 40,
-                "max_output_tokens": 2048,
+                "stream": False
             }
             
-            response = self.model.generate_content(
-                prompt,
-                safety_settings=safety_settings,
-                generation_config=generation_config
+            # Make direct HTTP request to Groq API
+            response = requests.post(
+                self.api_url,
+                headers=self.headers,
+                json=payload,
+                timeout=30
             )
             
-            # Add a post-processing step to verify answer integrity
-            return self._verify_and_refine_response(response.text, question, context)
+            if response.status_code == 200:
+                response_data = response.json()
+                response_text = response_data['choices'][0]['message']['content']
+                
+                # Add a post-processing step to verify answer integrity
+                return self._verify_and_refine_response(response_text, question, context)
+            else:
+                return f"Error: HTTP {response.status_code} - {response.text}"
         except Exception as e:
             return f"Error generating response: {str(e)}"
     
@@ -178,12 +182,58 @@ CONTEXT:
 VERIFICATION DECISION (only respond with "CONTAINS_ANSWER" or "NO_ANSWER"):
 """
                 try:
-                    verification_result = self.model.generate_content(verification_prompt)
-                    if "CONTAINS_ANSWER" in verification_result.text:
-                        # Try generating a better response
-                        retry_prompt = self._create_prompt(question, context, None)
-                        retry_response = self.model.generate_content(retry_prompt)
-                        return retry_response.text
+                    verification_messages = [
+                        {
+                            "role": "user",
+                            "content": verification_prompt
+                        }
+                    ]
+                    
+                    verification_payload = {
+                        "model": self.model_name,
+                        "messages": verification_messages,
+                        "temperature": 0.1,
+                        "max_tokens": 100
+                    }
+                    
+                    verification_response = requests.post(
+                        self.api_url,
+                        headers=self.headers,
+                        json=verification_payload,
+                        timeout=30
+                    )
+                    
+                    if verification_response.status_code == 200:
+                        verification_data = verification_response.json()
+                        verification_text = verification_data['choices'][0]['message']['content']
+                        
+                        if "CONTAINS_ANSWER" in verification_text:
+                            # Try generating a better response
+                            retry_prompt = self._create_prompt(question, context, None)
+                            retry_messages = [
+                                {
+                                    "role": "user",
+                                    "content": retry_prompt
+                                }
+                            ]
+                            
+                            retry_payload = {
+                                "model": self.model_name,
+                                "messages": retry_messages,
+                                "temperature": 0.2,
+                                "max_tokens": 2048
+                            }
+                            
+                            retry_response = requests.post(
+                                self.api_url,
+                                headers=self.headers,
+                                json=retry_payload,
+                                timeout=30
+                            )
+                            
+                            if retry_response.status_code == 200:
+                                retry_data = retry_response.json()
+                                return retry_data['choices'][0]['message']['content']
                 except:
                     pass
                 
@@ -214,8 +264,30 @@ USER QUERIES:
 SUMMARY:
 """
             try:
-                response = self.model.generate_content(summary_prompt)
-                return response.text
+                summary_messages = [
+                    {
+                        "role": "user",
+                        "content": summary_prompt
+                    }
+                ]
+                
+                summary_payload = {
+                    "model": self.model_name,
+                    "messages": summary_messages,
+                    "temperature": 0.3,
+                    "max_tokens": 200
+                }
+                
+                response = requests.post(
+                    self.api_url,
+                    headers=self.headers,
+                    json=summary_payload,
+                    timeout=30
+                )
+                
+                if response.status_code == 200:
+                    response_data = response.json()
+                    return response_data['choices'][0]['message']['content']
             except Exception:
                 return None
         
