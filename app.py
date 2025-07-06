@@ -264,18 +264,18 @@ if prompt := st.chat_input("Ask about admissions, fees, courses, or university l
             # Get response
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
-                    # Get chunks based on selected data source - increase number of initial chunks to search
+                    # Enhanced chunk retrieval with intelligent search
                     if st.session_state.data_source == "all":
-                        # Search for relevant chunks
-                        relevant_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=20)
+                        # Use enhanced search with broader initial search
+                        relevant_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=25)
                     elif st.session_state.data_source == "pdf":
                         # Search in all chunks first, then filter by type
-                        all_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=30)
-                        relevant_chunks = [chunk for chunk in all_chunks if chunk["metadata"].get("type") == "pdf"][:15]
+                        all_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=35)
+                        relevant_chunks = [chunk for chunk in all_chunks if chunk["metadata"].get("type") == "pdf"][:20]
                     else:  # web only
                         # Search in all chunks first, then filter by type
-                        all_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=30)
-                        relevant_chunks = [chunk for chunk in all_chunks if chunk["metadata"].get("type") == "web"][:15]
+                        all_chunks = st.session_state.embeddings_manager.search_similar_chunks(prompt, k=35)
+                        relevant_chunks = [chunk for chunk in all_chunks if chunk["metadata"].get("type") == "web"][:20]
                     
                     # Log information about the chunks if in debug mode
                     if st.session_state.debug_mode:
@@ -283,12 +283,20 @@ if prompt := st.chat_input("Ask about admissions, fees, courses, or university l
                             st.write(f"Found {len(relevant_chunks)} relevant chunks")
                             if relevant_chunks:
                                 st.write(f"Top relevance score: {relevant_chunks[0]['metadata'].get('relevance_score', 0):.2f}")
+                                st.write(f"Filtering reason: {relevant_chunks[0]['metadata'].get('filtering_reason', 'unknown')}")
+                                
                                 # Show the top 3 chunks and their relevance scores
                                 for i, chunk in enumerate(relevant_chunks[:3]):
-                                    st.markdown(f"**Chunk {i+1}** (Score: {chunk['metadata'].get('relevance_score', 0):.2f})")
+                                    st.markdown(f"**Chunk {i+1}** (Score: {chunk['metadata'].get('relevance_score', 0):.2f}, Reason: {chunk['metadata'].get('filtering_reason', 'unknown')})")
                                     st.text(chunk['text'][:200] + "...")
+                                    
+                                    # Show additional metadata if available
+                                    if 'semantic_category' in chunk['metadata']:
+                                        st.write(f"Category: {chunk['metadata']['semantic_category']}")
+                                    if 'content_quality' in chunk['metadata']:
+                                        st.write(f"Quality: {chunk['metadata']['content_quality']:.2f}")
                     
-                    # Generate response
+                    # Generate response with enhanced API
                     response = st.session_state.gemini_api.generate_response(
                         prompt, 
                         relevant_chunks,
@@ -302,10 +310,6 @@ if prompt := st.chat_input("Ask about admissions, fees, courses, or university l
                             for i, q in enumerate(st.session_state.query_history[:-1]):
                                 st.write(f"{i+1}. {q}")
                     
-                    # Check if response indicates no information and provide feedback
-                    if "don't have enough information" in response.lower():
-                        st.warning("I couldn't find specific information about that in my knowledge base. Please try rephrasing your question or ask about a different university topic.")
-                        
                     # Display response
                     st.markdown(response)
                     
